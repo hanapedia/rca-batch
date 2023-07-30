@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-serviceaccount
+  namespace: my-namespace
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role  # or ClusterRole
+metadata:
+  namespace: my-namespace
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding  # or ClusterRoleBinding
+metadata:
+  name: read-pods
+  namespace: my-namespace
+subjects:
+- kind: ServiceAccount
+  name: my-serviceaccount
+  namespace: my-namespace
+roleRef:
+  kind: Role  # or ClusterRole
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
