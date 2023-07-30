@@ -1,5 +1,5 @@
 from .ports import PodFetcher, MetricFetcher, DataStore
-from domain.services import MetricsProcessor
+from rca_batch.domain.services import MetricsProcessor
 
 class GatherMetricsUseCase:
     def __init__(self, pod_fetcher: PodFetcher, metric_fetcher: MetricFetcher, data_store: DataStore):

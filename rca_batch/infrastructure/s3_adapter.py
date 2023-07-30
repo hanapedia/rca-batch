@@ -1,5 +1,5 @@
 import boto3
-from application.ports import DataStore
+from rca_batch.application.ports import DataStore
 import pandas as pd
 
 class S3Adapter(DataStore):

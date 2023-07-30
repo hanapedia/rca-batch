@@ -1,5 +1,5 @@
 from kubernetes import client, config
-from application.ports import PodFetcher
+from rca_batch.application.ports import PodFetcher
 
 class KubernetesAdapter(PodFetcher):
     def __init__(self, namespace: str):

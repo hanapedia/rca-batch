@@ -1,4 +1,4 @@
-from .entities import TimeSeries
+from rca_batch.domain.entities import TimeSeries
 from typing import List
 import pandas as pd
 

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 import pandas as pd
-from domain.entities import TimeSeries
+from rca_batch.domain.entities import TimeSeries
 
 class PodFetcher(ABC):
     @abstractmethod
