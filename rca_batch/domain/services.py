@@ -1,6 +1,7 @@
-from rca_batch.domain.entities import TimeSeries
 from typing import List
 import pandas as pd
+
+from rca_batch.domain.entities import TimeSeries
 
 class MetricsProcessor:
     @staticmethod
