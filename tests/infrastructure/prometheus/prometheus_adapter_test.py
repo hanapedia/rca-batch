@@ -1,4 +1,6 @@
+from time import time
 import unittest.mock as mock
+from rca_batch.application.ports import MetricFetcherConfig
 from rca_batch.domain.entities import TimeSeries, Metrics
 from rca_batch.infrastructure.prometheus.client import PrometheusResponse, PrometheusResult, PrometheusData
 from rca_batch.infrastructure.prometheus.adapter import PrometheusAdapter
@@ -22,7 +24,10 @@ dummy_prometheus_response = PrometheusResponse(
 )
 
 def test_get_metrics():
-    instance = PrometheusAdapter("http://localhost:9090", "the-bench")
+    instance = PrometheusAdapter(
+        MetricFetcherConfig("http://localhost:9090", time(), 300, 15),
+        "the-bench",
+    )
 
     with mock.patch.object(instance, 'get_cpu_usage', return_value=dummy_prometheus_response) as cpu_mock, \
          mock.patch.object(instance, 'get_memory_usage', return_value=dummy_prometheus_response) as mem_mock, \

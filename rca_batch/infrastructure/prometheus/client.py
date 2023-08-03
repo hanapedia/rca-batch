@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-from time import time
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple
 import requests
 
 @dataclass
@@ -76,20 +75,21 @@ class PrometheusResponse:
         return result_dict
 
 class PrometheusClient:
-    def __init__(self, base_url):
+    def __init__(self, base_url: str, end_time: float, duration: int, step: int):
         self.base_url = base_url
+        self.end_time = end_time
+        self.duration = duration
+        self.step = step
+        self.start = end_time - duration
 
-    def query_range(self, query, end=time(), minutes=5, step='15s') -> PrometheusResponse:
-        # Calculate start and end times
-        start = end - minutes * 60
-
+    def query_range(self, query: str) -> PrometheusResponse:
         response = requests.get(
-            f"{self.base_url}/api/v1/query_range",
+            f'{self.base_url}/api/v1/query_range',
             params={
-                "query": query,
-                "start": start,
-                "end": end,
-                "step": step
+                'query': query,
+                'start': self.start,
+                'end': self.end_time,
+                'step': f'{self.step}s',
             }
         )
 

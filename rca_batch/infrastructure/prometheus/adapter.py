@@ -1,7 +1,7 @@
 import textwrap
 from typing import Dict, List
 
-from rca_batch.application.ports import MetricFetcher
+from rca_batch.application.ports import MetricFetcher, MetricFetcherConfig
 from rca_batch.domain.entities import Metrics, TimeSeries
 from rca_batch.infrastructure.prometheus.client import PrometheusClient, PrometheusResponse
 
@@ -51,8 +51,15 @@ class PrometheusQuery:
         return self
 
 class PrometheusAdapter(MetricFetcher):
-    def __init__(self, prometheus_url: str, namespace: str):
-        self.client = PrometheusClient(prometheus_url)
+    def __init__(self, config: MetricFetcherConfig, namespace: str):
+        super().__init__(config)
+
+        self.client = PrometheusClient(
+            self.source_url,
+            self.end_time,
+            self.duration,
+            self.step,
+        )
         self.namespace = namespace
 
         self.cpu_usage_query = f'irate(container_cpu_usage_seconds_total{{namespace="{namespace}", container=""}}[5m])'
