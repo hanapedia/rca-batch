@@ -9,3 +9,12 @@ __pycache__/
 /.mypy_cache
 /.pytest_cache
 
+# environemental variables
+.env
+**/.env.kube
+
+# data directory for output testing
+/data/
+
+# secrets
+**/aws-credentials.yaml
