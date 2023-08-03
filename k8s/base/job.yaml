@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rca-batch
+spec:
+  template:
+    spec:
+      containers:
+      - name: rca-batch
+        image: hiroki11hanada/rca-batch:latest
+        envFrom:
+        - configMapRef:
+            name: rca-batch-env
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: aws_access_key_id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: aws_secret_access_key
+      restartPolicy: Never
