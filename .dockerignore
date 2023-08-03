@@ -1,0 +1,13 @@
+/.git/
+/.pytest_cache/
+/.venv/
+/data/
+/mianifest/
+/storage/
+/tests/
+
+.editorconfig
+.env
+.env.example
+pyrightconfig.json
+README.md
