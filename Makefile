@@ -21,13 +21,13 @@ else
 $(error ENGINE must be either 'docker' or 'podman')
 endif
 
-.PHONY: dev release push all deploy
+.PHONY: dev ship push all deploy test
 
 dev:
 	$(BUILD_COMMAND_ARM64)
 	$(PUSH_COMMAND)
 
-release:
+ship:
 	$(BUILD_COMMAND)
 	$(PUSH_COMMAND)
 
@@ -41,3 +41,9 @@ all:
 deploy:
 	bash k8s/prepare_secret.sh -n $(NAMESPACE)
 	kubectl apply -k k8s/overlays/development -n $(NAMESPACE)
+
+install:
+	poetry install
+
+test:
+	poetry run pytest
