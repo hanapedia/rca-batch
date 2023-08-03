@@ -1,5 +1,5 @@
 # RCA Batch jobs
-Batch jobs required for running rca experiments.
+Batch job to save metrics data to be used by RCA methods.
 
 The job consists of following steps:
 1. Query Prometheus API for metrics such as CPU usage, memory usage, and network latency.
