@@ -25,17 +25,13 @@ def test_MetricsProcessor_process():
     df = MetricsProcessor.process([ts1, ts2])
 
     expected_df = pd.DataFrame({
-        'cpu_usage': [1.0, 1.5, 2.0, 2.5],
-        'memory_usage': [100, 110, 200, 210],
-        'network_latency': [5, 6, 7, 8],
-    }, index=pd.MultiIndex.from_tuples([
-        ('deployment1', timestamp1),
-        ('deployment1', timestamp2),
-        ('deployment2', timestamp1),
-        ('deployment2', timestamp2),
-    ], names=['deployment', 'timestamp']))
-    print(df.columns, df.index)
-    print(expected_df.columns)
+        'deployment1-cpu_usage': [1.0, 1.5],
+        'deployment1-memory_usage': [100, 110],
+        'deployment1-network_latency': [5, 6],
+        'deployment2-cpu_usage': [2.0, 2.5],
+        'deployment2-memory_usage': [200, 210],
+        'deployment2-network_latency': [7, 8],
+    }, index=pd.Index([timestamp1, timestamp2], name='timestamp'))
 
     pdt.assert_frame_equal(df, expected_df)
 

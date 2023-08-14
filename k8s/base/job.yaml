@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: rca-batch
-        image: hiroki11hanada/rca-batch:latest
+        image: hiroki11hanada/rca-batch:v0.0.1
         envFrom:
         - configMapRef:
             name: rca-batch-env
@@ -22,4 +22,6 @@ spec:
             secretKeyRef:
               name: aws-credentials
               key: aws_secret_access_key
+        - name: S3_KEY
+          value: test/test
       restartPolicy: Never

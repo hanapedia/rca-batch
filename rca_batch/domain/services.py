@@ -9,13 +9,12 @@ class MetricsProcessor:
         deployment_dfs = []
         for ts in time_series:
             df = pd.DataFrame(ts.metrics.to_dict())
-            df['deployment'] = ts.deployment_name
-            df.set_index('deployment', inplace=True)
             df['timestamp'] = ts.timestamps
-            df.set_index('timestamp', append=True, inplace=True)
+            df.set_index('timestamp', inplace=True)
+            df.columns = [f'{ts.deployment_name}-{col}' for col in df.columns]
             deployment_dfs.append(df)
 
-        # Concatenate all the dataframes
-        full_df = pd.concat(deployment_dfs, axis=0)
+        # Join all the dataframes
+        full_df = deployment_dfs[0].join(deployment_dfs[1:], how='outer')
 
         return full_df

@@ -21,13 +21,13 @@ else
 $(error ENGINE must be either 'docker' or 'podman')
 endif
 
-.PHONY: dev ship push all deploy test
+.PHONY: dev prod push all deploy test
 
 dev:
 	$(BUILD_COMMAND_ARM64)
 	$(PUSH_COMMAND)
 
-ship:
+prod:
 	$(BUILD_COMMAND)
 	$(PUSH_COMMAND)
 
