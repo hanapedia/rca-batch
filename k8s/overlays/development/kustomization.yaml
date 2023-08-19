@@ -9,3 +9,10 @@ configMapGenerator:
   env: .env.kube
 generatorOptions:
   disableNameSuffixHash: true
+patches:
+- path: job-patch.yaml
+  target:
+    group: batch
+    kind: Job
+    name: rca-batch
+    version: v1
